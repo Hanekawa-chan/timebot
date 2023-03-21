@@ -3,7 +3,6 @@ package app
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/codingsince1985/geo-golang"
 	"io"
 	"net/http"
@@ -114,7 +113,6 @@ func (s service) getTimeByLocation(lat, lng float64) (string, error) {
 		s.logger.Error().Err(err).Msg("response read")
 		return "", err
 	}
-	fmt.Println(string(body))
 
 	var timeResponse TimeResponse
 	err = json.Unmarshal(body, &timeResponse)
@@ -122,8 +120,6 @@ func (s service) getTimeByLocation(lat, lng float64) (string, error) {
 		s.logger.Error().Err(err).Msg("response unmarshal")
 		return "", err
 	}
-
-	fmt.Println(timeResponse)
 
 	if timeResponse.Timestamp == 0 {
 		s.logger.Error().Err(err).Msg("response returned 0 as unix time")

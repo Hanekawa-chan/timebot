@@ -4,8 +4,6 @@ services:
     build:
       context: .
     container_name: bot
-    ports:
-      - "6080:6080"
     restart: always
     environment:
       BOT_TELEGRAM_TOKEN: "6113934108:AAGAazyc4__S7Uq9lSr6X9UP8yg1Jc33y6U"
@@ -18,8 +16,6 @@ services:
       BOT_MIGRATIONS_SOURCE_URL: "file://migrations"
     depends_on:
       - db
-    volumes:
-      - /certs:/certs/
   db:
     image: postgres:15
     container_name: db
