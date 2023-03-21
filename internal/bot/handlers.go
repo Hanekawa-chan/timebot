@@ -71,11 +71,13 @@ func (a adapter) Start() error {
 			default:
 				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "There are 3 commands:\n"+
 					"/time [place]\n"+
-					"\tDescription: shows time in specified place\n"+
+					"Description: shows time in specified place\n"+
+					"Example: /time Kazan\n\n"+
 					"/location [place]\n"+
-					"\tDescription: shows location of specified place in latitude and longitude\n"+
+					"Description: shows location of specified place in latitude and longitude\n"+
+					"Example: /location London\n\n"+
 					"/stats\n"+
-					"\tDescription: shows yours statistics")
+					"Description: shows yours statistics")
 				if _, err := a.bot.Send(msg); err != nil {
 					a.logger.Error().Err(err).Msg("Message send")
 					break
