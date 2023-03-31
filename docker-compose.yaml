@@ -10,20 +10,20 @@ services:
       BOT_CLIENT_TIME_TOKEN: "5TEOC6R12XJX"
       BOT_CLIENT_TIME_URL: "https://api.timezonedb.com/v2.1/get-time-zone"
       BOT_POSTGRES_NAME: "bot"
-      BOT_POSTGRES_HOST: "db"
+      BOT_POSTGRES_HOST: "timebot_db"
       BOT_POSTGRES_PORT: 5432
       BOT_POSTGRES_USER: "user"
       BOT_POSTGRES_PASSWORD: "password"
       BOT_MIGRATIONS_SOURCE_URL: "file://migrations"
     depends_on:
-      - db
-  db:
+      - timebot_db
+  timebot_db:
     image: postgres:15
-    container_name: db
+    container_name: timebot_db
     restart: always
     environment:
       POSTGRES_DB: "bot"
       POSTGRES_USER: "user"
       POSTGRES_PASSWORD: "password"
     ports:
-      - "5432:5432"
+      - "5431:5432"
