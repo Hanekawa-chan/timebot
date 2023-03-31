@@ -3,6 +3,7 @@ package main
 import (
 	"bot/internal/app"
 	"bot/internal/bot"
+	"bot/internal/client"
 	"bot/internal/config"
 	"bot/internal/database"
 	"github.com/rs/zerolog"
@@ -36,7 +37,9 @@ func main() {
 		logger.Fatal().Err(err).Msg("Database init")
 	}
 
-	service := app.NewService(logger, cfg.Service, db)
+	clientAdapter := client.NewAdapter(logger, cfg.Client)
+
+	service := app.NewService(logger, db, clientAdapter)
 
 	telegramBot, err := bot.NewAdapter(logger, cfg.Bot, service)
 	if err != nil {

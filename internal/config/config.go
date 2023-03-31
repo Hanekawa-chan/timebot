@@ -1,18 +1,18 @@
 package config
 
 import (
-	"bot/internal/app"
 	"bot/internal/bot"
+	"bot/internal/client"
 	"bot/internal/database"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/rs/zerolog/log"
 )
 
 type Config struct {
-	Logger  LoggerConfig
-	DB      database.Config
-	Bot     bot.Config
-	Service app.Config
+	Logger LoggerConfig
+	DB     database.Config
+	Bot    bot.Config
+	Client client.Config
 }
 
 type LoggerConfig struct {
@@ -24,7 +24,7 @@ func Parse() (*Config, error) {
 	logger := LoggerConfig{}
 	db := database.Config{}
 	telegramBot := bot.Config{}
-	service := app.Config{}
+	clientConfig := client.Config{}
 	project := "BOT"
 
 	err := envconfig.Process(project, &logger)
@@ -45,7 +45,7 @@ func Parse() (*Config, error) {
 		return nil, err
 	}
 
-	err = envconfig.Process(project, &service)
+	err = envconfig.Process(project, &clientConfig)
 	if err != nil {
 		log.Err(err).Msg("auth config error")
 		return nil, err
@@ -54,7 +54,7 @@ func Parse() (*Config, error) {
 	cfg.Bot = telegramBot
 	cfg.DB = db
 	cfg.Logger = logger
-	cfg.Service = service
+	cfg.Client = clientConfig
 
 	return &cfg, nil
 }

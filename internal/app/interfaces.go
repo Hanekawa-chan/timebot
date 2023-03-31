@@ -1,12 +1,14 @@
 package app
 
-import "time"
+import (
+	"github.com/codingsince1985/geo-golang"
+	"time"
+)
 
 type Service interface {
 	GetTimeByCity(chatID int64, city string) (string, error)
 	GetStats(chatID int64) (string, error)
 	GetLocation(chatID int64, city string) (string, error)
-	//GetRegions() (string, error)
 }
 
 type Database interface {
@@ -19,4 +21,9 @@ type Database interface {
 type Bot interface {
 	Start() error
 	Shutdown()
+}
+
+type Client interface {
+	GetLocation(city string) (*geo.Location, error)
+	GetTimeByLocation(lat, lng float64) (string, error)
 }
